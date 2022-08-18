@@ -6,7 +6,7 @@ import get_employees from '../../redux/actions/employeesAction';
 import Lottie from 'react-lottie';
 import penguin from '../dashboard/penguin.json'
 const defaultOptions = {
-    loop: true,
+    loop: false,
     autoplay: true, 
     animationData: penguin,
     rendererSettings: {
