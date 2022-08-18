@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.login .form-group {
+  margin-bottom: 2rem !important;
+  margin-top: 2rem !important;
+  text-align: center !important;
+  margin-left: 2%;
+}
+.login .quality__btn {
+  margin-top: 0px;
+  margin-left: 2%;
+}
+.login .input-group-text {
+  color: white !important;
+  background-color: #5a49ce !important;
+}
+.emplist .btn {
+  min-width: 158px;
+    height: 43px;
+    padding: 0 12px;
+    border-radius: 16px/16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+    font-weight: 700;
+    -webkit-transition: all .25s;
+    -o-transition: all .25s;
+    transition: all .25s;
+    margin-top: -14px;
+}
+.react-calendar{
+  border: none !important;
+}
+.asheet .widget{
+  padding:14px;
+  padding-bottom: 30px;
+}
+.asheet .details__col:first-child {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 100%;
+  padding-right: 0px;
+}
+.asheet .icon {
+  color: rgb(108, 93, 211);
+    margin-right: 20px;
+}
+.cmg .imcontain{
+  margin:auto;
+}
+.cmg .imgst{
+  margin-left: 32%;
+}
+.cmg .imtxt {
+  margin-left: 50%;
+  color:#6c5dd3;
+  margin-top: -80px;
+}
+
+@media only screen and (max-width: 768px) { 
+  .cmg .imcontain {
+    margin-top: 30%;
+
+  }
+  .cmg .imgst {
+    margin-left: 0%;
+  }
+  .cmg .imtxt{
+    margin-left: 0%;
+    text-align: center;
+    color: #6c5dd3;
+    margin-top: -50px;
+  }
+}
