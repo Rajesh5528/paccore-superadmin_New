@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import EmpList from './components/dashboard/emplist';
 import Asheet from './components/dashboard/asheet';
 import CommingSoon from './components/dashboard/commingsoon';
+import Sidebar from './components/dashboard/sidebar';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/appraisals' exact element={<CommingSoon />} />
           <Route path='/salaries' exact element={<CommingSoon />} />
           <Route path='/stickets' exact element={<CommingSoon />} />
+          <Route path='/sidebar' exact element={<Sidebar />} />
         </Routes>
       </Router>
     </div>

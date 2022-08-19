@@ -10,18 +10,22 @@ import { useNavigate } from "react-router-dom";
 import 'react-calendar/dist/Calendar.css';
 import { toast } from 'react-toastify';
 import Moment from 'react-moment';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import DayBarChart from './daybarchart';
+import Header from './header';
 
 const Asheet = () => {
   const [defData,setDefData] = useState({});
     const [otTime,setOttime] = useState('00:00:00');
     const [selectedDate,setSelectedDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
     const [tab, setTab] = useState('weekly');
     const [barData,setBarData] = useState([]);
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
-       
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         getLogByDay();
         
         getanalytdata('weekly')
@@ -78,6 +82,7 @@ const handleChange = async(e) => {
         
             }
         } else {
+          setDefData({})
             toast.error('There is No data on That Date', {
                 position: toast.POSITION.BOTTOM_LEFT
               });
@@ -109,7 +114,10 @@ const sendemppage = () => {
 }
     return ( 
         <div>
+           <Header />
+          <div class="mobsid">
             <Sidebar />
+            </div>
             <div class="asheet">
             <div class="page__wrapper">
         <div class="page__center">
@@ -117,11 +125,7 @@ const sendemppage = () => {
             <div class="page__col">
               <div class="page__hello h5">{location.state.data.empName},</div>
               <div class="page__welcome h2">{defData.duration}</div>
-            </div>
-           
-          </div>
-          <div class="page__row page__row_border">
-            <div class="page__col">
+              <div class="page__col">
               <div class="details">
                 <div class="details__container">
                   <div class="details__title h4">
@@ -199,6 +203,7 @@ const sendemppage = () => {
                   </div>
                 </div>
               </div>
+             
               {/* <div class="page__widgets">
                 <div class="widget widget_users widget_shadow widget_p0">
                   <div class="widget__head">
@@ -324,9 +329,13 @@ const sendemppage = () => {
                   </div>
                 </div>
             </div>
+            </div>
             <div class="page__col">
               <div class="page__group">
-                <div class="widget widget_shadow">
+                {/* <div class='mobcalendar'>
+              <DatePicker selected={selectedDate}  onChange={(e) => handleChange(e)} value={selectedDate} maxDate={new Date()} />
+              </div> */}
+                <div class="widget widget_shadow deskcalendar">
                   
                   <Calendar  onChange={(e) => handleChange(e)} value={selectedDate} maxDate={new Date()} />
                 </div>
@@ -339,6 +348,7 @@ const sendemppage = () => {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
             </div>

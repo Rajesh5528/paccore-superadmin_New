@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import get_employees from '../../redux/actions/employeesAction';
+import Header from './header';
 
 
 
@@ -59,12 +60,15 @@ const EmpList = (props) => {
     return ( 
         
         <div class="emplist">
+          <Header />
+          <div class="mobsid">
             <Sidebar />
+            </div>
             <div class="page__content page__content_pt64">
             <div class="page__stat">
             <div class="products__more" style={{float:'right'}}><button class="products__btn btn btn_purple">Create Employee</button></div>
            
-            <div class="page__title h6">Employee's List</div>
+            <div class="page__title h6">Employee List</div>
              
            
               
@@ -97,9 +101,9 @@ const EmpList = (props) => {
                 </div>
               </div>
               <div class="products products_history">
-                <div class="products__table">
+                {/* <div class="products__table table table-responsive">
                   <div class="products__row products__row_head">
-                    <div class="products__cell">S.No</div>
+                    
                     <div class="products__cell">Employee Name</div>
                     <div class="products__cell">Employee Email</div>
                     <div class="products__cell">Employee Phone</div>
@@ -113,7 +117,7 @@ const EmpList = (props) => {
         data.map((k,index) => {
             return(
                 <div class="products__row">
-                        <div class="products__cell">1</div>
+                       
                         <div class="products__cell">
                             
                                 
@@ -126,7 +130,7 @@ const EmpList = (props) => {
                         <div class="products__cell">{k.email}</div>
                         <div class="products__cell">
                         +{k.phone}
-                            {/* <div class="products__status caption bg-green">Paid</div> */}
+                           
                         </div>
                         <div style={{textAlign:'center',color:'green'}} class="products__cell color-gray">10</div>
                         <div style={{textAlign:'center'}} class="products__cell color-gray">15</div>
@@ -142,6 +146,75 @@ const EmpList = (props) => {
                     
                   
                  
+                 
+                </div> */}
+                <div class="products__table">
+                  <div class="products__row products__row_head">
+                    
+                  <div class="products__cell">Employee Name</div>
+                    <div class="products__cell">Employee Email</div>
+                    <div class="products__cell">Employee Phone</div>
+                    <div class="products__cell">Leave Balance</div>
+                    <div class="products__cell">Over Time</div>
+                    <div class="products__cell">Total Work Hours</div>
+                    <div class="products__cell"></div>
+                  </div>
+                 {!loader ? data && data.length > 0 ? 
+                      data.map((k,index) => {
+                          return(
+                           
+                               <div style={{cursor:'pointer'}} onClick={() => sendsheet(k)} class="products__row">
+                    
+                    <div class="products__cell">
+                        
+                        <div class="products__details">
+                          <div class="products__title title">{k.empName.length > 16 ? k.empName.slice(0,16)+'...' : k.empName}</div>
+                          <div class="products__info caption color-gray">{k.empId}</div>
+                        </div>
+                    </div>
+                    <div class="products__cell">
+                      <div class="products__payment">{k.email.length > 16 ? k.email.slice(0,16)+'...' : k.email}</div>
+                    </div>
+                    
+                    <div class="products__cell">
+                      <div class="products__cost">
+                        <div class="products__money"> +{k.phone}</div>
+                        
+                      </div>
+                    </div>
+                    <div class="products__cell">
+                      <div class="products__rating">10</div>
+                    </div>
+                    <div class="products__cell">
+                      <div class="products__rating">15</div>
+                    </div>
+                    <div class="products__cell">
+                      <div  class="products__rating">240</div>
+                    </div>
+                    <div class="products__cell">
+                    <div  class="products__status caption bg-green">View</div>
+                    </div>
+                  
+                  <div class="products__body">
+                  
+                    <div class="products__line">
+                      <div class="products__col">
+                        {/* <div class="products__money">240</div> */}
+                        <div style={{cursor:'pointer'}} onClick={() => sendsheet(k)} class="products__status caption bg-green">View</div>
+                      </div>
+                      {/* <div class="products__col">37 in stock</div>
+                      <div class="products__col color-green">5.0</div> */}
+                    </div>
+                  </div>
+                  </div>     
+                          )
+                      }) : null:<p>Loading</p>
+                  }
+                 
+                 
+                 
+                  
+                  
                  
                 </div>
                 
