@@ -56,7 +56,9 @@ const EmpList = (props) => {
        
           
        }
-       
+       const sendcrtemp = () => {
+        navigate("/createemploye");
+       }
     return ( 
         
         <div class="emplist">
@@ -66,7 +68,7 @@ const EmpList = (props) => {
             </div>
             <div class="page__content page__content_pt64">
             <div class="page__stat">
-            <div class="products__more" style={{float:'right'}}><button class="products__btn btn btn_purple">Create Employee</button></div>
+            <div class="products__more" style={{float:'right'}}><button onClick={() => sendcrtemp()} class="products__btn btn btn_purple">Create Employee</button></div>
            
             <div class="page__title h6">Employee List</div>
              

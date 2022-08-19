@@ -332,9 +332,9 @@ const sendemppage = () => {
             </div>
             <div class="page__col">
               <div class="page__group">
-                {/* <div class='mobcalendar'>
+                <div class='mobcalendar'>
               <DatePicker selected={selectedDate}  onChange={(e) => handleChange(e)} value={selectedDate} maxDate={new Date()} />
-              </div> */}
+              </div>
                 <div class="widget widget_shadow deskcalendar">
                   
                   <Calendar  onChange={(e) => handleChange(e)} value={selectedDate} maxDate={new Date()} />

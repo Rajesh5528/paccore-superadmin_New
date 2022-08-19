@@ -27,6 +27,12 @@ export async function getanalytdata(obj) {
    
 	return data.data;
 }
+export async function createemp(obj) {
+	
+	const data = await http.post('/createEmployee',obj);
+   
+	return data.data;
+}
 export async function getCurrentUser() {
 	try {
         // const dfet = await localStorage.getItem()
@@ -49,5 +55,6 @@ export default {
 	login,
     allemployees,
     getlogbyday,
-    getanalytdata
+    getanalytdata,
+	createemp
 }

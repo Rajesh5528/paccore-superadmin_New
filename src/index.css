@@ -82,6 +82,9 @@ code {
   padding:10px;
   padding-right:20px;
 }
+.mobcalendar {
+  display:none;
+}
 @media only screen and (max-width: 768px) { 
   .cmg .imcontain {
     margin-top: 30%;
@@ -125,7 +128,7 @@ code {
   .mobsid {
     display: none;
   }
-  /* .deskcalendar {
+  .deskcalendar {
     display:none;
   }
   .mobcalendar {
@@ -137,5 +140,9 @@ code {
     width: 60% !important;
     height: 36px;
     border-radius: 10px;
-  } */
+  }
+  .asheet input[type="text"], input[type="email"], input[type="tel"], textarea {
+    -webkit-appearance: none;
+    font-size: 18px;
+}
 }

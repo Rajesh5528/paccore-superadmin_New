@@ -7,6 +7,7 @@ import EmpList from './components/dashboard/emplist';
 import Asheet from './components/dashboard/asheet';
 import CommingSoon from './components/dashboard/commingsoon';
 import Sidebar from './components/dashboard/sidebar';
+import CreateEmployee from './components/dashboard/createemploye';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path='/salaries' exact element={<CommingSoon />} />
           <Route path='/stickets' exact element={<CommingSoon />} />
           <Route path='/sidebar' exact element={<Sidebar />} />
+          <Route path='/createemploye' exact element={<CreateEmployee />} />
         </Routes>
       </Router>
     </div>
