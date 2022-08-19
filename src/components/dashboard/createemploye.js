@@ -106,6 +106,8 @@ const CreateEmploye = () => {
             <div class="mobsid">
             <Sidebar />
             </div>
+            <div class="page__content page__content_pt64">
+            <div class="page__stat">
             <div >
         <div class="centered-form">
 
@@ -183,6 +185,8 @@ const CreateEmploye = () => {
 	    		</div>
     		</div>
     	</div>
+    </div>
+    </div>
     </div>
         </div>
      );
