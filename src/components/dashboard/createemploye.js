@@ -95,7 +95,12 @@ const CreateEmploye = () => {
                 await setBtndis(false)
 
                 
-            }
+            }else if(ex.response.status >= 400 && ex.response.status <500){
+                await setBtndis(false);
+                toast.error('No Network,Please Connect to Internet', {
+                  position: toast.POSITION.BOTTOM_LEFT
+                });
+              }
         }
      }
    
