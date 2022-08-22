@@ -81,13 +81,14 @@ const Login = () => {
   <div  class="centered">
     <div class="left_container" >
       <div>
-  <img src={process.env.PUBLIC_URL + '/assets/images/pactimelogo2.png'} />
+  
   {/* <h1 style={{color:'white',fontSize:'60px',fontFamily:'Barlow,sans-serif',lineHeight:'0.4'}}>Pactime</h1> */}
   </div>
   {/* <h1 style={{color:'white',fontSize:'60px',fontFamily:'Barlow,sans-serif',lineHeight:'0.4'}}>Pactime</h1> */}
   <div class="login schedules">
-              <div class="schedules__container">
-                
+              <div style={{display:'flex'}} class="schedules__container">
+              <img src={process.env.PUBLIC_URL + '/assets/images/pactimelogo2.png'} />
+              <div class="w-360">
                 <div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-user"></i></span>
@@ -107,6 +108,7 @@ const Login = () => {
                             <button  class="quality__btn btn btn_purple btn_wide">Processing...</button>
                         }
                     
+                    </div>
                     </div>
               </div>
             </div>
