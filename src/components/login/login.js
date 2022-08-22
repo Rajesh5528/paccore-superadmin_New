@@ -4,8 +4,6 @@ import authService from '../../services/authService';
 import { useNavigate } from "react-router-dom";
 import get_employees from '../../redux/actions/employeesAction';
 import Lottie from 'react-lottie';
-// import '@lottiefiles/lottie-player';
-// import { create } from '@lottiefiles/lottie-interactivity';
 import penguin from '../dashboard/penguin.json'
 const defaultOptions = {
     loop: false,
@@ -21,39 +19,7 @@ const Login = () => {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [btndis,setBtndis] = useState(false);
-    // const ref = useRef();
-    // useEffect(() => {
-    //   ref.current.addEventListener('load', function (e) {
-    //     // 4. configure the interactivity library
-    //     create({
-    //       mode: 'chain',
-    //       player: '#firstLottie',
-    //       actions: [
-    //         {
-    //           state: 'hover',
-    //         forceFlag: true,
-    //         frames: 'star',
-    //         transition: 'hover',
-    //         path: 'https://assets10.lottiefiles.com/private_files/lf30_rsqq11m6.json',
-    //         count: 5
-    //         },
-    //         {
-    //           path: 'https://assets1.lottiefiles.com/packages/lf20_ISbOsd.json',
-    //           state: 'autoplay',
-    //           reset: true,
-    //           transition: 'onComplete'
-    //         },
-    //         {
-    //             state: 'autoplay',
-    //             frames: 'brocolli',
-    //             transition: 'onComplete',
-    //             jumpTo: 1
-    //         }
-    //     ],
-    //     });
-    //   });
-        
-    //  },[])
+ 
     let navigate = useNavigate();
     const handleChange = async(e) => {
         await setEmail(e.target.value)
@@ -162,14 +128,7 @@ const Login = () => {
    
   </div> */}
   <div class="lottie_cont">
-  {/* <lottie-player
-          ref={ref} // 2. set the reference for the player
-          id="firstLottie"
-          controls={true}
-          mode="normal"
-          // src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
-          // style={{ width: '320px' }}
-        ></lottie-player> */}
+
     <Lottie options={defaultOptions}
               
               />

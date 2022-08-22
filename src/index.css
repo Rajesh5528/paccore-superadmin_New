@@ -85,6 +85,12 @@ code {
 .mobcalendar {
   display:none;
 }
+.toolbar {
+  display:none !important;
+}
+#lottie-controls {
+  display:none !important
+}
 @media only screen and (max-width: 768px) { 
   .cmg .imcontain {
     margin-top: 30%;
