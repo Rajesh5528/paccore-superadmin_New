@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import get_employees from '../../redux/actions/employeesAction';
 import Lottie from 'react-lottie';
 import penguin from '../dashboard/penguin.json'
+import http from '../../services/httpService';
+
 const defaultOptions = {
     loop: false,
     autoplay: true, 
@@ -25,6 +27,8 @@ const Login = () => {
         await setEmail(e.target.value)
         
     }
+    
+    
     const handleChangepass = async(e) => {
         await setPassword(e.target.value)
         
