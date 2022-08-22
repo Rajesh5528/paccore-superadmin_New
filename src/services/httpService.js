@@ -17,7 +17,7 @@ axios.interceptors.response.use(null, (error) => {
 			position: toast.POSITION.BOTTOM_LEFT
 		  });
 		  setTimeout(() => {
-			window.location.reload(false)
+			// window.location.reload(false)
 			// navigate("/login", { replace: true });
 		  }, 2000);
 		  
