@@ -86,7 +86,7 @@ const Login = () => {
   </div>
   {/* <h1 style={{color:'white',fontSize:'60px',fontFamily:'Barlow,sans-serif',lineHeight:'0.4'}}>Pactime</h1> */}
   <div class="login schedules">
-              <div style={{display:'flex'}} class="schedules__container">
+              <div  class="schedules__container dis-flex">
               <img src={process.env.PUBLIC_URL + '/assets/images/pactimelogo2.png'} />
               <div class="w-360">
                 <div class="input-group form-group">
