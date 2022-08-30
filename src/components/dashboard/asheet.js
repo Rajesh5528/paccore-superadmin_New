@@ -14,8 +14,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DayBarChart from './daybarchart';
 import Header from './header';
+import BarChart from './barchart';
 
-const Asheet = () => {
+const Asheet = (props) => {
   const [defData,setDefData] = useState({});
     const [otTime,setOttime] = useState('00:00:00');
     const [selectedDate,setSelectedDate] = useState(new Date());
@@ -25,6 +26,7 @@ const Asheet = () => {
     let navigate = useNavigate();
     const location = useLocation();
     useEffect(() => {
+      console.log(location.state.data,'data');
       window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
         getLogByDay();
         
@@ -112,6 +114,7 @@ const getanalytdata = async(t) => {
 const sendemppage = () => {
     navigate("/emplist", { replace: true });
 }
+
     return ( 
         <div>
            <Header />
@@ -248,7 +251,24 @@ const sendemppage = () => {
                   <div class="widget__title">Working Projects</div>
                   <div class="quality">
                     <div class="quality__list">
-                      <div class="quality__item quality__item_chart">
+                      {location.state.data ? location.state.data.projects && location.state.data.projects.length > 0 ? 
+                          location.state.data.projects.map(k => {
+                            return(
+                              <div class="quality__item quality__item_chart">
+                              <div class="quality__preview bg-pink-opacity"><img class="quality__pic" src={process.env.PUBLIC_URL + '/assets/images/figure-1.png'} alt="" /></div>
+                              <div class="quality__details">
+                                <div style={{textTransform:'uppercase'}} class="quality__title title">{k.name}</div>
+                                <div class="quality__info caption-sm">{k.note}</div>
+                              </div>
+                              <div class="quality__chart">
+                                <div id="chart-circle-purple"></div>
+                                <div class="quality__percent caption-sm">90%</div>
+                              </div>
+                            </div>
+                            )
+                          }) : null : null
+                      }
+                      {/* <div class="quality__item quality__item_chart">
                         <div class="quality__preview bg-pink-opacity"><img class="quality__pic" src={process.env.PUBLIC_URL + '/assets/images/figure-1.png'} alt="" /></div>
                         <div class="quality__details">
                           <div class="quality__title title">BIJBOL</div>
@@ -280,8 +300,12 @@ const sendemppage = () => {
                           <div id="chart-circle-red"></div>
                           <div class="quality__percent caption-sm">15%</div>
                         </div>
-                      </div>
-                    </div><button class="quality__btn btn btn_black btn_wide">Discover More</button>
+                      </div> */}
+                    </div>
+                    {location.state.data ? location.state.data.projects && location.state.data.projects.length > 3 ? 
+                          <button class="quality__btn btn btn_black btn_wide">Discover More</button> : null : null
+                    }
+                    
                   </div>
                 </div>
                 
@@ -294,37 +318,25 @@ const sendemppage = () => {
                   </div>
                   <div class="quality">
                     <div class="quality__list">
-                      <div class="quality__item">
+                    {location.state.data ? location.state.data.reportingTo && location.state.data.reportingTo.length > 0 ? 
+                          location.state.data.reportingTo.map(k => {
+                            return(
+                              <div class="quality__item">
                         <div class="quality__preview bg-pink-opacity"><img class="quality__pic" src={process.env.PUBLIC_URL + '/assets/images/figure-1.png'} alt="" /></div>
                         <div class="quality__details">
                           <div class="quality__line">
-                            <div class="quality__title title">Vikram</div>
+                            <div class="quality__title title">{k.empName}</div>
                             <div class="quality__price title"><i  class="fa fa-chevron-right icon"></i></div>
                             
                           </div>
-                          <div class="quality__info caption-sm">Reporting Manager</div>
+                          <div class="quality__info caption-sm">{k.role}</div>
                         </div>
                       </div>
-                      <div class="quality__item">
-                        <div class="quality__preview bg-pink-opacity"><img class="quality__pic" src={process.env.PUBLIC_URL + '/assets/images/figure-3.png'} alt="" /></div>
-                        <div class="quality__details">
-                          <div class="quality__line">
-                            <div class="quality__title title">Pawan Abhiram</div>
-                            <div class="quality__price title"><i  class="fa fa-chevron-right icon"></i></div>
-                          </div>
-                          <div class="quality__info caption-sm">Technical Lead</div>
-                        </div>
-                      </div>
-                      <div class="quality__item">
-                        <div class="quality__preview bg-blue-opacity"><img class="quality__pic" src={process.env.PUBLIC_URL + '/assets/images/figure-5.png'} alt="" /></div>
-                        <div class="quality__details">
-                          <div class="quality__line">
-                            <div class="quality__title title">Rahul</div>
-                            <div class="quality__price title"><i  class="fa fa-chevron-right icon"></i></div>
-                          </div>
-                          <div class="quality__info caption-sm">Lead Operations</div>
-                        </div>
-                      </div>
+                            
+                            )
+                          }) : null : null
+                      }
+                      
                     </div>
                   </div>
                 </div>
@@ -339,6 +351,20 @@ const sendemppage = () => {
                   
                   <Calendar  onChange={(e) => handleChange(e)} value={selectedDate} maxDate={new Date()} />
                 </div>
+                <div className='tabs_Container'>
+                            <div style={{color:tab === 'weekly' ? '#83837a': '#83837a',cursor:'pointer'}} onClick={() => handleTab('weekly')} className='tab'>
+                                <p style={{fontSize:'16px',fontWeight:'700'}}>Weekly</p>
+                            </div>
+                            <div style={{color:tab === 'yearly' ? '#83837a': '#83837a',cursor:'pointer'}} onClick={() => handleTab('yearly')} className='tab'>
+                                <p style={{fontSize:'16px',fontWeight:'700'}}>Monthly</p>
+                            </div>
+                        </div>
+                        <div style={{marginTop:'18px'}}>
+                            {barData && barData.length > 0 ? 
+                                <BarChart bardata={barData} tab={tab} /> : null
+                            }
+        
+      </div>
                 {/* <div class="widget widget_empty widget_p0">
                   <div class="widget__title">Work Status</div>
                   <div class="widget__chart widget__chart_impressions">

@@ -26,7 +26,7 @@ const Sidebar = () => {
                     <div class="sidebar__text">Leave Management</div>
                   </Link><Link to='/prjmanagement' class={location.pathname === '/prjmanagement' ? "sidebar__item active": 'sidebar__item'}  >
                     {/* <div class="sidebar__icon"></div> */}
-                    <div class="sidebar__text">Project Managent</div>
+                    <div class="sidebar__text">Project Management</div>
                   </Link><Link to='/asstmanagement' class={location.pathname === '/asstmanagement' ? "sidebar__item active": 'sidebar__item'} >
                     {/* <div class="sidebar__icon"></div> */}
                     <div class="sidebar__text">Asset Management</div>

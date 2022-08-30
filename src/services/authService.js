@@ -15,9 +15,21 @@ export async function allemployees() {
    
 	return data;
 }
+export async function allprojects() {
+	
+	const data = await http.post('/getAllProject');
+   
+	return data;
+}
 export async function getlogbyday(obj) {
 	
 	const data = await http.post('/getLogByDay',obj);
+   
+	return data.data;
+}
+export async function createproj(obj) {
+	
+	const data = await http.post('/createProject',obj);
    
 	return data.data;
 }
@@ -56,5 +68,7 @@ export default {
     allemployees,
     getlogbyday,
     getanalytdata,
-	createemp
+	createemp,
+	createproj,
+	allprojects
 }

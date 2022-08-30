@@ -1,21 +1,29 @@
-import React, { Component,useEffect,useState } from 'react';
+import React, { Component,useEffect,useState,useRef } from 'react';
 import Sidebar from './sidebar';
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Multiselect from 'multiselect-react-dropdown';
 import get_employees from '../../redux/actions/employeesAction';
 import Header from './header';
-
-
+import get_projects from '../../redux/actions/projectsAction';
+import Pagination from './common/pagination';
+import { paginate } from './common/paginate';
 
 const EmpList = (props) => {
     const [data,setData] = useState([]);
     const [ddata,setDData] = useState([]);
     const [loader,setLoader] = useState(true);
+    const [options, setOptions] = useState([]);
+    const [ooptions, setoOptions] = useState([]);
+    const [selectedValue,setselectedValue] = useState([]);
+    const [pageSize,setPageSize] = useState(5);
+    const [currentPage,setcurrentPage]= useState(1)
+    const multiselectRef = useRef();
     let navigate = useNavigate();
     useEffect(() => {
         get_employees();  
    
-    
+        get_projects();
         
         
      },[])
@@ -25,17 +33,43 @@ const EmpList = (props) => {
     
         setfet()
     
+        setproj()
         
-        
-     },[props.emps.data])
+     },[props.emps.data,props.projs.data])
      const setfet = async() => {
         console.log(props.emps,'aftcalling');
         if(props.emps.data?.length > 0){
             console.log(props.emps.data,'data');
+            
             await setData(props.emps.data)
             await setDData(props.emps.data)
             await setLoader(false)
         }
+     }
+     const setproj = async() => {
+        console.log(props.projs,'projs');
+        if(props.projs.data?.length > 0){
+          console.log(props.projs.data,'data');
+          await setOptions(props.projs.data)
+          await setoOptions(props.projs.data)
+          await setLoader(false)
+      }
+     }
+     const selectprojs = async(item) => {
+        console.log(item,'item');
+        let itemid = '';
+        let emps = [];
+    
+        const det = ddata && ddata.length > 0 && ddata.map(l => {
+            l.projects?.length > 0 && l.projects.map(k => {
+              if(k._id === item[0]._id){
+                emps.push(l)
+              }
+            })
+         
+        })
+        
+        await setData(emps)
      }
      const sendsheet = (item) => {
         navigate("/asheet", {state:{data:item} });
@@ -49,6 +83,7 @@ const EmpList = (props) => {
                   .toLowerCase()
                   .includes(e.target.value.toLowerCase()),
               );
+              
               setData(filtered)
         }else{
             setData(ddata)
@@ -59,6 +94,12 @@ const EmpList = (props) => {
        const sendcrtemp = () => {
         navigate("/createemploye");
        }
+       const handlePageChange = (page) => {
+          setcurrentPage(page)
+       }
+       console.log(currentPage,'currentPage');
+       const pdata = paginate(data, currentPage, pageSize);
+      console.log(pdata,'pdata');
     return ( 
         
         <div class="emplist">
@@ -79,17 +120,18 @@ const EmpList = (props) => {
                   <div class="sorting__col">
                     <div class="sorting__dropdowns">
                       <div class="dropdown js-dropdown">
-                        <div class="dropdown__head js-dropdown-head">All Projects</div>
-                        <div class="dropdown__body js-dropdown-body"><a class="dropdown__item" href="#">
-                            <div class="dropdown__title title">Bento 3D Kit </div>
-                            <div class="dropdown__info caption">Illustration</div>
-                          </a><a class="dropdown__item" href="#">
-                            <div class="dropdown__title title">Bento 3D Kit </div>
-                            <div class="dropdown__info caption">Illustration</div>
-                          </a><a class="dropdown__item" href="#">
-                            <div class="dropdown__title title">Collab UI Kit </div>
-                            <div class="dropdown__info caption">Coded Template</div>
-                          </a></div>
+                      <Multiselect
+                                    placeholder='All Projects'
+                                    options={options}
+                                    class="dropdown__head js-dropdown-head"
+                                    selectedValues={selectedValue}
+                                    singleSelect={true}
+                                    defaltValue={selectedValue}
+                                    displayValue="name"
+                                    ref={multiselectRef}
+                                    onSelect={(value) => selectprojs(value)}
+                                />
+                        
                       </div>
                       
                     </div>
@@ -103,66 +145,21 @@ const EmpList = (props) => {
                 </div>
               </div>
               <div class="products products_history">
-                {/* <div class="products__table table table-responsive">
-                  <div class="products__row products__row_head">
-                    
-                    <div class="products__cell">Employee Name</div>
-                    <div class="products__cell">Employee Email</div>
-                    <div class="products__cell">Employee Phone</div>
-                    <div class="products__cell">Leave Balance</div>
-                    <div class="products__cell">Over Time</div>
-                    <div class="products__cell">Total Work Hours</div>
-                    <div class="products__cell"></div>
-                  </div>
-                   
-       {!loader ? data && data.length > 0 ?
-        data.map((k,index) => {
-            return(
-                <div class="products__row">
-                       
-                        <div class="products__cell">
-                            
-                                
-                                <div class="products__details">
-                                <div class="products__title title">{k.empName.length > 16 ? k.empName.slice(0,16)+'...' : k.empName}</div>
-                                <div class="products__info caption color-gray">{k.empId}</div>
-                                </div>
-                            
-                        </div>
-                        <div class="products__cell">{k.email}</div>
-                        <div class="products__cell">
-                        +{k.phone}
-                           
-                        </div>
-                        <div style={{textAlign:'center',color:'green'}} class="products__cell color-gray">10</div>
-                        <div style={{textAlign:'center'}} class="products__cell color-gray">15</div>
-                        <div style={{textAlign:'center'}} class="products__cell color-gray">240</div>
-                        <div class="products__cell">
-                       
-                            <div style={{cursor:'pointer'}} onClick={() => sendsheet(k)} class="products__status caption bg-green">View</div>
-                        </div>
-                    </div>
-            )}) : null : <p>Loading...</p>}
-                  
-                    
-                    
-                  
-                 
-                 
-                </div> */}
+               
                 <div class="products__table">
                   <div class="products__row products__row_head">
                     
                   <div class="products__cell">Employee Name</div>
                     <div class="products__cell">Employee Email</div>
                     <div class="products__cell">Employee Phone</div>
-                    <div class="products__cell">Leave Balance</div>
-                    <div class="products__cell">Over Time</div>
-                    <div class="products__cell">Total Work Hours</div>
+                    <div class="products__cell">Total Leaves</div>
+                    <div class="products__cell">Leaves Taken</div>
+                    <div class="products__cell">Sick Leaves</div>
+                    <div class="products__cell">Casual Leaves</div>
                     <div class="products__cell"></div>
                   </div>
-                 {!loader ? data && data.length > 0 ? 
-                      data.map((k,index) => {
+                 {!loader ? pdata && pdata.length > 0 ? 
+                      pdata.map((k,index) => {
                           return(
                            
                                <div style={{cursor:'pointer'}} onClick={() => sendsheet(k)} class="products__row">
@@ -185,13 +182,16 @@ const EmpList = (props) => {
                       </div>
                     </div>
                     <div class="products__cell">
-                      <div class="products__rating">10</div>
+                      <div class="products__rating">12</div>
                     </div>
                     <div class="products__cell">
-                      <div class="products__rating">15</div>
+                      <div class="products__rating">5</div>
                     </div>
                     <div class="products__cell">
-                      <div  class="products__rating">240</div>
+                      <div  class="products__rating">2</div>
+                    </div>
+                    <div class="products__cell">
+                      <div  class="products__rating">3</div>
                     </div>
                     <div class="products__cell">
                     <div  class="products__status caption bg-green">View</div>
@@ -210,16 +210,22 @@ const EmpList = (props) => {
                   </div>
                   </div>     
                           )
-                      }) : null:<p>Loading</p>
+                      }) : <p>No Data Found</p>:<p>Loading</p>
                   }
                  
                  
                  
                   
                   
-                 
                 </div>
-                
+                <div style={{marginTop:'20px',marginLeft:'40%'}}>
+                 <Pagination 
+            itemsCount={data.length} 
+            pageSize={pageSize}
+            currentPage={currentPage} 
+            onPageChange={(page) => handlePageChange(page)} 
+          />
+          </div>
               </div>
             </div>
           </div>
@@ -229,7 +235,8 @@ const EmpList = (props) => {
  
 const mapStateToProps = state => {
 	return {
-		emps:state.employees
+		emps:state.employees,
+    projs:state.projects
 	};
 };
 

@@ -91,6 +91,22 @@ code {
 #lottie-controls {
   display:none !important
 }
+.tabs_Container {
+  display: flex;
+  margin-top: 20px;
+  /* border:1px solid grey; */
+  padding:1px;
+  align-items: center;
+  padding-left: 16%;
+  padding-top: 2%;
+  padding-bottom: 0px;
+}
+.tab {
+  width:50%;
+  margin-top: 10px;
+  /* text-decoration: underline; */
+  
+}
 @media only screen and (max-width: 768px) { 
   .cmg .imcontain {
     margin-top: 30%;
