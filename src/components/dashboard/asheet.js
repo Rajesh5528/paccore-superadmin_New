@@ -1,6 +1,5 @@
 import React, { Component,useEffect,useState } from 'react';
 import Sidebar from './sidebar';
-
 import {useLocation} from 'react-router-dom';
 // import BarChart from './barchart.js'
 import moment from 'moment';
@@ -31,7 +30,8 @@ const Asheet = (props) => {
         getLogByDay();
         
         getanalytdata('weekly')
-        
+         // should give me 01:30 but does not work
+
      },[])
      const getLogByDay = async() => {
         const date = moment().format('DD-MM-YYYY')
@@ -105,6 +105,7 @@ const getanalytdata = async(t) => {
         const obj = {"analytic":t}
         console.log(obj,'obj');
         const deta = await authService.getanalytdata(obj)
+        console.log(deta,'deta');
         setBarData(deta.data)
         console.log(deta.data);
    } catch (ex) {
@@ -360,8 +361,8 @@ const sendemppage = () => {
                             </div>
                         </div>
                         <div style={{marginTop:'18px'}}>
-                            {barData && barData.length > 0 ? 
-                                <BarChart bardata={barData} tab={tab} /> : null
+                            {barData  ? 
+                                <BarChart bardataweekly={barData.weekly} bardatamonthly={barData.Monthly} tab={tab} /> : null
                             }
         
       </div>

@@ -24,3 +24,11 @@ box-shadow: 10px 10px 5px 0px rgba(0,0,0,10%);
     font-weight: 700;
     margin-top: 6px;
 }
+.leave .ReactModal__Overlay {
+    background-color: rgba(0,0,0,0.75);
+}
+@media only screen and (max-width: 768px) { 
+    .leave .tab {
+        width:100% !important;
+    }
+}

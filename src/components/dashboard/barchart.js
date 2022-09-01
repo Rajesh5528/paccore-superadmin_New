@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-
+import moment from 'moment';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -31,13 +31,23 @@ export const options = {
         display: true
     },
     scales: {
-        y: {
-          ticks: {
-            display: false,
-          }
+      yAxes: [
+        {
+          type:'time',
+          time: {
+            minUnit: "minute as const",
+              displayFormats: {
+                hour: 'HH:MM'
+              },
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
         }
-      }
-    },
+      ],
+      
+    }}
 };
 
 // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
@@ -47,19 +57,38 @@ const BarChart = (props) => {
    
     let lab = [];
     let dee = [];
+    console.log(props.bardataweekly,'barchart');
+    if(props.tab === 'weekly'){
+      const det = props.bardataweekly && props.bardataweekly.length > 0 && props.bardataweekly.map(k => {
+        lab.push(k.day.slice(0,3));
+        dee.push(k.workhours)
+       console.log(k.workhours,'workhours');
+          var x = moment('00:00', 'HH:mm');
+var y = moment(k.workhours, 'HH:mm');
+var diff = y.diff(x, 'minutes'); // 90 
+console.log(diff,'diff');
+      })
+      
+    }else {
+      const det = props.bardatamonthly && props.bardatamonthly.length > 0 && props.bardatamonthly.map(k => {
+        lab.push(k.month.slice(0,3));
+        dee.push(k.workhours.slice(0,2))
+      })
+    }
     
-    const det = props.bardata.map(async l => {
-        if(props.tab === 'weekly'){
-            lab.push(l.day.slice(0,3));
-        dee.push(l.workinghour.slice(0,2));
+    // const det = props.bardata.map(async l => {
+    //     console.log(l,'l');
+    //     if(props.tab === 'weekly'){
+    //         lab.push(l.day.slice(0,3));
+    //     dee.push(l.workinghour.slice(0,2));
         
-        }else{
-            console.log(props.tab,'tab');
-            lab.push(l.month.slice(0,3));
-        dee.push(l.workhours.slice(0,3))
-        }
+    //     }else{
+    //         console.log(props.tab,'tab');
+    //         lab.push(l.month.slice(0,3));
+    //     dee.push(l.workhours.slice(0,3))
+    //     }
         
-    })
+    // })
     const data = {
         labels:lab,
         datasets: [
@@ -68,7 +97,7 @@ const BarChart = (props) => {
               fill: false,
               label: "total count/value",
               // Data or value of your each variable
-              data: dee,
+              data: ['00:25','01:20','02:00','05:00','06:40','07:20','09:40'],
               // backgroundColor:
               // Color of each bar
               backgroundColor: props.tab === 'weekly' ? dee.map(k => k <8 ? ['#3f8cff']:['#6c5dd3']) : dee.map(k => k < 150 ? ['#3f8cff']:['#6c5dd3']),
